@@ -1,3 +1,10 @@
+/**
+ * Notify CSS File
+ * 
+ */
+
+/* This is just a simple Reset, I would suggest removing this line in production code
+ *  and replacing it with a full reset file like that found in TorchUI http://www.alldorks.com/torchui/ */
 html, body { margin:0;padding:0;height:100%;width:100%;position:relative; }
 
 #notify-history {

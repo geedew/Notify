@@ -1,0 +1,25 @@
+/***
+ *
+ * Notify is a very easy to use and very robust notification system.
+ *   It is NOT a Lightbox/Alert/Confirm system, just a notification system.
+ *   Currently, it is not to be considered ready for production systems, but
+ *   if you do know your way around JavaScript, then it should at least do much
+ *   for you that you couldn't previously do yourself.
+ *
+ * Author: Drew Wilson (geedew)
+ *	       drew@geedew.com
+ *		   http://geedew.com
+ *
+ *
+ * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+ *  also found in the file LICENSE that should have accompanied this software.
+ *
+ *
+ * For Installation help, please navigate to http://alldorks.com/wordpress/notify/
+ * 		There you find how to use this file, along with the current usable API, tips and tricks.
+ *
+ * Any other questions, just email the author
+ *
+ ***/
+ 
+
