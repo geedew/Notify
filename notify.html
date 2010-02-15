@@ -7,8 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Notify Test File</title>
 
-<link rel="stylesheet" href="notify.css" type="text/css" />
-<script type="text/javascript" src="jquery-v1.3.2.js"></script>
+<link rel="stylesheet" href="jquery-ui.css" type="text/css" />
+<script type="text/javascript" src="jquery-1.4.1.min.js"></script>
 <script type="text/javascript" src="notify.js"></script>
 
 
@@ -56,7 +56,7 @@ Proin tempor, justo eu elementum varius, nisi velit ultricies mi, at tempus magn
 			$("#notifyTest1").notify({group:"notify-right", mode : "after", showClose:false}).hide(); },1000);
 		setTimeout(function() {
 		$("#notifyTest2").notify({group:"notify-right", mode : "after"}).hide(); },3000);
-		setTimeout(function() {
+		/*setTimeout(function() {
 		$("#notifyTest3").notify({group:"notify-right", mode : "after"}).hide(); },5000);
 		setTimeout(function() {
 		$.notify("Test Right Side 4",{group:"notify-right", mode : "after"}); },6000);
@@ -85,9 +85,9 @@ Proin tempor, justo eu elementum varius, nisi velit ultricies mi, at tempus magn
 		setTimeout( function() {
 		 $.notify("Test me too8"); },8000);
 		setTimeout( function() {
-		 $.notify("Test me too9"); },9000);
+		 $.notify("Test me too9"); },9000);*/
 		setTimeout( function() {
-		 $.notify("Test me too10",{sticky:true, onClose:function(elem, options) { return confirm("are you sure you wish to remove this?");}}); },10000);
+		 $.notify("Alert when closed.",{sticky:true, onClose:function(elem, options) { return confirm("I die very slow, are you sure?");}}); },10000);
 		setTimeout( function() {
 		 $.notify("Test me too11"); },11000);
 		setTimeout( function() {

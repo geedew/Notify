@@ -1,10 +1,10 @@
  
 /**
- * Notify v.0.5.0
+ * Notify v.0.7.1
  * 
  * jQuery Notification System.
  *
- * Copyright (c) 2009 Drew Wilson (http://www.geedew.com, http://www.alldorks.com/notify)
+ * Copyright (c) 2009-2010 Drew Wilson (http://www.geedew.com, http://www.alldorks.com/notify)
  * Licensed under the MIT http://www.alldorks.com/notfy/license
  *
  *
@@ -20,14 +20,15 @@
  (function($) {
 	
 	var notifyConfig = {
-			container : "notify-history",	
-			innerContainer : "notify-group",
+			container : "notify-history", // This is an ID that is applied to the entire List
+			innerContainer : "notify-group", // This is a class that is applied to every group within the list
 			showHistory : true, // Set to false to hide the history link
 			limit : 8 , // Limits how much is viewable on screen, Does not include sticky elements
 			historyLink : {}, // This holds the link so that it is accessible to anythings
 			historyLinkId : "notify-history-link" , // This is the id of the link for the history
 			historyLinkText : "Show History" ,
 			hideHistoryLinkText : "Hide History",
+				historyPlacement : "top-left",
 			onHistory : function(historyLink) { return true; },
 			timers : [] , // Holds the timers for the notifications
 			data : [] , // Holds all of the notification for history control
@@ -40,6 +41,10 @@
 					showClose : true, // Whether or not to show the close icon
 					noHistory : false, // Whether to push to history or not
 					
+					/* Positioning 
+					 * [top|middle|bottom]-[left|center|right] */
+					position : "top-left", 
+					
 					/*Not Implemented*/
 					showTime : true, // Displays a timestamp ***NOT ACTIVE YET**
 					attention : true, // If no mouse movement is noticed, this will not dissapear ** NOT ACTIVE YET **
@@ -48,13 +53,13 @@
 					notifyClass : "notification", // Entire Notification 
 					activestatus : "notify-active", // History or Active
 					inactivestatus : "notify-history", // What class when inactive.
+					titleClass : "notify-title", // Sets thet 
 					messageClass : "notify-message", // Class that depicts the message within the notification
 					hoverClass : "hover", // Change status on hover
 					closeClass : "notify-close", // So you can change this easier for your liking
 					closeText : "close", //Close text, or html like an image
 					removeClass: "notify-remove", 
 					removeText : "remove", //Close text, or html
-					
 					/* Opening|UnPausing Animation */
 					openAnimateParams : { opacity: 0.8 },
 					openAnimateDuration : 700,
@@ -129,13 +134,16 @@
 		if($("#"+notifyConfig.container).length < 1) {
 			var container = $("<ol />")
 					.attr("id", notifyConfig.container)
+					.css({"position":"absolute","top":0,"left":0, "list-style":"none","margin":"0px","padding":"0px"})
 					.appendTo("body");
 			if(notifyConfig.showHistory) {
 				/* Create the history Link */
 				
 				notifyConfig.historyLink = $("<li />")
 					.attr("id", notifyConfig.historyLinkId)
-					.html(notifyConfig.historyLinkText)
+					.html('<span class="ui-widget-title">'+notifyConfig.historyLinkText+'</span>')
+					.addClass("ui-widget")
+					.css({"position":"absolute","top":0,"left":0})
 					.hide() // Not visible until elements are added
 					.click(function() {
 						historyAction();
@@ -148,6 +156,7 @@
 			var container = $("<ol />")
 					.attr("id", arguments[0])
 					.addClass(notifyConfig.innerContainer)
+					.css({"list-style":"none","margin":"0px","padding":"0px"})
 					.appendTo("#"+notifyConfig.container);
 					$(container).wrap("<li />"); // Wrap the element so that it also works in the form.
 					
@@ -292,14 +301,15 @@
 		}
 		
 		var note = $("<li />")
-			.html($("<div />").addClass(options.messageClass).html(message))
-			.addClass(options.notifyClass+" "+options.activestatus)
+			.html($("<div />").addClass(options.messageClass).addClass("ui-widget-content").html(message))
+			.addClass(options.notifyClass+" "+options.activestatus).addClass("ui-widget")
+			.css("margin","0px")
 			/*Using bind so I can unbind later (".hover" will not allow this) */
 			.bind("mouseover",function() {
 				/* Pause on over */
 				pauseNotification(this, options);
 				options.onOver(this, options);
-				$(this).addClass(options.hoverClass);
+				$(this).addClass(options.hoverClass).addClass("ui-state-hover");
 				if(options.showClose|| (options.sticky && !options.showClose)) showClose(this, options);
 				
 			})
@@ -307,7 +317,7 @@
 				/* Unpause the notification */
 				continueNotification(this, options);
 				options.onOut(this, options);
-				$(this).removeClass(options.hoverClass);
+				$(this).removeClass(options.hoverClass).removeClass("ui-state-hover");
 				hideClose(this, options);
 			});
 		if(options.mode == "after")
@@ -317,11 +327,14 @@
 			
 			
 		
-		/* Show or don'g show the close button */
+		/* Show or don't show the close button */
 		var close = $("<div />")
 			.html(options.closeText)
 			.addClass(options.closeClass)
-			.appendTo(note)
+			.addClass("ui-icon")
+			.addClass("ui-icon-closethick")
+			.css({"float":"right"})
+			.prependTo(note)
 			.hide()
 			.click(function() {
 				closeNotification(note, options);
@@ -343,7 +356,6 @@
 		}
 		/* Push the new notification into History */
 		notifyConfig.data.push(history);
-		
 		
 		/* Start the clock */
 		continueNotification(note,options);
