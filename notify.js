@@ -1,16 +1,23 @@
  
 /**
- * Notify v.0.7.1
+ * Notify JavaScript
  * 
  * jQuery Notification System.
  *
- * Copyright (c) 2009-2010 Drew Wilson (http://www.geedew.com, http://www.alldorks.com/notify)
+ * Copyright (c) 2009-2011 Drew Wilson (http://www.geedew.com, http://www.alldorks.com/notify)
  * Licensed under the MIT http://www.alldorks.com/notfy/license
  *
+ * @author Drew Wilson <drew@geedew.com>
+ * @version 0.8
  *
- **/
+ * @todo Update to take advantage of newest jQuery
+ * @todo Get rid of the Div on top (unless a modal style)
+ * @todo Add test cases to makes sure everything is running smooth
+ */
 
- 
+ /**
+  * Extend the array object with a function remove
+  */
  Array.prototype.remove = function(from, to) {
 	var rest = this.slice((to || from) + 1 || this.length);
 		this.length = from < 0 ? this.length + from : from;
@@ -90,6 +97,13 @@
 			}	
 	}
 	
+
+	/** <<<<<<<<<< Edit below at your own risk >>>>>>>>>> **/
+
+	/**
+	 * Create the notify object
+	 * @param object options An object containing any options that are found in the config
+	 */
 	$.fn.extend({
 		notify : function(options) {
 			var settings = $.extend({ }, notifyConfig.defaults,options);
