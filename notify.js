@@ -338,7 +338,9 @@
 			})
 			.bind("mousedown",function() {
 				$(this).addClass('ui-state-active');
-			});
+			})
+			.data('settings',options);
+			
 		if(notifyConfig.bgiframe) $(note).addClass("ui-helper-zfix");
 		if(options.mode == "after")
 			$(note).appendTo(current).hide(); /* Start it out hidden */
