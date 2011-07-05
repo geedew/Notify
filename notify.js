@@ -28,6 +28,7 @@
 	
 	var notifyConfig = {
 			container : "notify-history", // This is an ID that is applied to the entire List
+			bgiframe : false, // in case you're having issue with content floating above notifications
 			innerContainer : "notify-group", // This is a class that is applied to every group within the list
 			showHistory : true, // Set to false to hide the history link
 			limit : 8 , // Limits how much is viewable on screen, Does not include sticky elements
@@ -62,7 +63,6 @@
 					inactivestatus : "notify-history", // What class when inactive.
 					titleClass : "notify-title", // Sets thet 
 					messageClass : "notify-message", // Class that depicts the message within the notification
-					hoverClass : "hover", // Change status on hover
 					closeClass : "notify-close", // So you can change this easier for your liking
 					closeText : "close", //Close text, or html like an image
 					removeClass: "notify-remove", 
@@ -86,7 +86,7 @@
 				/* Required Configurations | Should not have to Edit*/
 					message : "", // Empty message, on purpose
 					currentlyActive : false, // This is true when hovering (for removal purposes
-					group : false, // Allows for grouping the notifications, a String here will set the Group
+					group : 'notify-default', // Allows for grouping the notifications, a String here will set the Group
 					
 					/** Hooks | default actions**/
 					onClose : function(self, options) {return true; }, //Function to run on Close to History
@@ -148,7 +148,7 @@
 		if($("#"+notifyConfig.container).length < 1) {
 			var container = $("<ol />")
 					.attr("id", notifyConfig.container)
-					.css({"position":"absolute","top":0,"left":0, "list-style":"none","margin":"0px","padding":"0px"})
+					.css({})
 					.appendTo("body");
 			if(notifyConfig.showHistory) {
 				/* Create the history Link */
@@ -157,7 +157,7 @@
 					.attr("id", notifyConfig.historyLinkId)
 					.html('<span class="ui-widget-title">'+notifyConfig.historyLinkText+'</span>')
 					.addClass("ui-widget")
-					.css({"position":"absolute","top":0,"left":0})
+					.css({})
 					.hide() // Not visible until elements are added
 					.click(function() {
 						historyAction();
@@ -166,6 +166,7 @@
 					
 			}
 		}
+		/* Add the group if it is passed */
 		if(arguments[0] && $("#"+arguments[0]).length < 1) {
 			var container = $("<ol />")
 					.attr("id", arguments[0])
@@ -204,6 +205,7 @@
 				options.openAnimateDuration, 
 				options.openAnimateEasing,
 				function() {
+					
 					if(options.onOpen(note, options)){
 						/* Show or hide the notification after a period of time */
 						if(!options.sticky) {
@@ -323,7 +325,7 @@
 				/* Pause on over */
 				pauseNotification(this, options);
 				options.onOver(this, options);
-				$(this).addClass(options.hoverClass).addClass("ui-state-hover");
+				$(this).addClass("ui-state-hover");
 				if(options.showClose|| (options.sticky && !options.showClose)) showClose(this, options);
 				
 			})
@@ -331,9 +333,13 @@
 				/* Unpause the notification */
 				continueNotification(this, options);
 				options.onOut(this, options);
-				$(this).removeClass(options.hoverClass).removeClass("ui-state-hover");
+				$(this).removeClass("ui-state-hover");
 				hideClose(this, options);
+			})
+			.bind("mousedown",function() {
+				$(this).addClass('ui-state-active');
 			});
+		if(notifyConfig.bgiframe) $(note).addClass("ui-helper-zfix");
 		if(options.mode == "after")
 			$(note).appendTo(current).hide(); /* Start it out hidden */
 			else if (options.mode == "before")
