@@ -6,7 +6,7 @@
  *   if you do know your way around JavaScript, then it should at least do much
  *   for you that you couldn't previously do yourself.
  *
- * Author: Drew Wilson (geedew)
+ * Author: Drew Wilson (@geedew)
  *	       drew@geedew.com
  *		   http://geedew.com
  *
@@ -22,4 +22,58 @@
  *
  ***/
  
+ Demo: http://alldorks.com/projects/notify/notify.html
+ Documentation: http://www.alldorks.com/notify/#api
+
+ Basic Usage:
+ $.notify('My Text');
+ $(".mytext").notify();
+
+ Using Options:
+ var options = { sticky:true, appearance: 5000 };
+ $.notify('My Text',options);
+ $(".mytext").notify(options);
+
+ Options and Defaults per message:
+ {
+	mode : "before", //before or after | defaults to above/before
+	sticky : false, // Doesn't disappear
+	appearance : 3, // Appear for 3 seconds
+	showClose : true, // Whether or not to show the close icon
+	noHistory : false, // Whether to push to history or not
+	
+	/* Basic Message Styling */
+	notifyClass : "notification", // Entire Notification 
+	activestatus : "notify-active", // History or Active
+	inactivestatus : "notify-history", // What class when inactive.
+	titleClass : "notify-title", // Sets thet 
+	messageClass : "notify-message", // Class that depicts the message within the notification
+	closeClass : "notify-close", // So you can change this easier for your liking
+	closeText : "close", //Close text, or html like an image
+	removeClass: "notify-remove", 
+	removeText : "remove", //Close text, or html
+	/* Opening|UnPausing Animation */
+	openAnimateParams : { opacity: 0.8 },
+	openAnimateDuration : 700,
+	openAnimateEasing : "linear",
+	openAnimateCallback : function() { return true },
+	/* Closing|Removing Animation */
+	closeAnimateParams :  { opacity: 0 },
+	closeAnimateDuration : 1000,
+	closeAnimateEasing : "linear",
+	closeAnimateCallback : function() { return true },
+	/* Pausing|Hovering Animation */
+	pauseAnimateParams : { opacity: 0.8 },
+	pauseAnimateDuration : 400 ,
+	pauseAnimateEasing : "swing",
+	pauseAnimateCallback : function() { return true },
+	group : 'notify-default', // Allows for grouping the notifications, a String here will set the Group
+	
+	/** Hooks | default actions**/
+	onClose : function(self, options) {return true; }, //Function to run on Close to History
+	onOver : function(self, options) {return true; }, // Function to run on Hover
+	onOut : function(self, options) { return true;}, // Function to run when off Hover
+	onOpen : function(self, options) {return true; }, // Function to run on Open
+	onRemove : function(self, options) {return true; } // Function to run when removed from History
+ }
 

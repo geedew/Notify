@@ -19,11 +19,46 @@
 <!--  Force IE8 to Render in IE7 Mode -->
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 
-<style type="text/css"></style>
+<style type="text/css">
+ fieldset { 
+  width:700px;
+  margin:0px auto;}
+</style>
 <script type="text/javascript"></script>
 
 </head>
 <body>
+<form action="#">
+	<fieldset>
+		<pre class="source">
+&lt;script&gt;
+ $('#Text-1-btn').click(function() {
+  $('#Text-1').notify();
+  return false;
+ });
+&lt;/script&gt;
+&lt;span id="Text-1"&gt;
+ Hello World!
+&lt;/span&gt; 
+&lt;a href="#" class="DemoButton" id="Text-1-btn"&gt;
+ &lt;span&gt;Click for Notification&lt;/span&gt;&lt;/a&gt;
+		</pre>
+		<span id="Text-1" style="display:none">Hello World!</span>
+		<a href="#" class="DemoButton" id="Text-1-btn"><span>Click for Notification</span></a>
+		<script>
+		$(document).ready(function() {
+			 $('#Text-1-btn').click(function() {
+			  $('#Text-1').notify();
+			  return false;
+			 });
+		});
+		</script>
+	</fieldset>
+	<script type="text/javascript">
+	</script>
+</form>
+
+
 <div class="">
 	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed commodo neque. Sed bibendum diam a odio malesuada commodo eu auctor diam. Sed eget lorem quis diam sagittis auctor at non orci. Proin fringilla, nulla in egestas ultricies, sem turpis commodo risus, eu cursus lacus enim interdum enim. Morbi tincidunt laoreet felis, et placerat sem molestie eu. Ut a tellus augue, eget auctor augue. Suspendisse nisi neque, aliquam vel pellentesque ac, consequat nec tortor. Vestibulum convallis urna id odio volutpat laoreet. Nulla facilisi. Aenean commodo elit vel est aliquet volutpat.</p>
 
@@ -44,9 +79,6 @@
 <p>Sed ultrices dui quis nisl dapibus interdum sit amet ut enim. Vivamus adipiscing justo sit amet odio faucibus posuere. Nam mollis varius eleifend. Phasellus vitae erat sit amet mi posuere lacinia imperdiet a enim. Maecenas egestas pretium tellus fermentum dignissim. Quisque id nisi ut orci blandit luctus pellentesque ut purus. Nullam nisi nunc, blandit eget ornare sed, ullamcorper in tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse feugiat nisl quis turpis gravida quis ullamcorper neque egestas. Fusce nibh lectus, euismod eget luctus vel, malesuada quis urna. Suspendisse tincidunt congue pulvinar. Integer vel nunc lorem, quis ornare mauris. Etiam gravida volutpat tellus, ut dapibus purus dapibus sed. Cras sit amet odio est, vel eleifend quam.</p>
 
 <p>Proin tempor, justo eu elementum varius, nisi velit ultricies mi, at tempus magna neque id dolor. Suspendisse non leo eget enim convallis adipiscing nec eu nibh. Integer posuere faucibus ultricies. Suspendisse ultricies orci vitae tellus ultricies vulputate. Maecenas placerat accumsan felis ac adipiscing. Nam venenatis, metus interdum gravida laoreet, lectus nibh ultricies sem, ullamcorper eleifend libero urna volutpat orci. Quisque faucibus pharetra enim ac rhoncus. Proin sapien erat, pulvinar vitae molestie eget, interdum id mi. Sed sit amet tortor libero. In est metus, fringilla eget laoreet in, blandit ut nunc. Donec ac urna urna. </p>
- <div id="notifyTest1"><p>This is the test text.where i am testing how it looks when you start adding a lot of text</p></div>
- <div id="notifyTest2"><p>This is the test text2.</p></div>
- <div id="notifyTest3"><p>This is the test text3.</p></div>
 </div>
 
 
@@ -54,54 +86,54 @@
 
 	$(document).ready(function() {
 		
-		setTimeout(function() {
-			$("#notifyTest1").notify({sticky:true,group:"notify-right", mode : "after", showClose:false}).hide(); },1000);
-		setTimeout(function() {
-		$("#notifyTest2").notify({group:"notify-right", mode : "after"}).hide(); },3000);
-		setTimeout(function() {
-		$("#notifyTest3").notify({group:"notify-right", mode : "after"}).hide(); },5000);
-		setTimeout(function() {
-		$.notify("Test Right Side 4",{group:"notify-right", mode : "after"}); },6000);
-		setTimeout(function() {
-		$.notify("Test Right Side 5",{group:"notify-right", mode :"after"}); },7000);
-		setTimeout(function() {
-		$.notify("Test Right Side 6",{group:"notify-right", mode : "after"}); },9000);
-		setTimeout(function() {
-		$.notify("Test Right Side 7",{group:"notify-right", mode : "after"}); },11000);
-		setTimeout(function() {
-		$.notify("Test Right Side 8",{group:"notify-right", mode : "after"}); },13000);
-		setTimeout(function() {
-		$.notify("Test me too"); },1000);
-		setTimeout(function() {
-		$.notify("Test me too2"); },2000);
-		setTimeout(function() {
-		$.notify("Test me too3"); },3000);
-		setTimeout(function() {
-		 $.notify("Test me too4"); },4000);
-		setTimeout(function() {
-		 $.notify("Test me too5"); },5000);
-		setTimeout(function() {
-		 $.notify("Test me too6"); },6000);
-		setTimeout(function() {
-		 $.notify("Test me too7"); },7000);
-		setTimeout( function() {
-		 $.notify("Test me too8"); },8000);
-		setTimeout( function() {
-		 $.notify("Test me too9"); },9000);
-		setTimeout( function() {
-		 $.notify("Alert when closed.",{sticky:true, onClose:function(elem, options) { return confirm("I die very slow, are you sure?");}}); },10000);
-		setTimeout( function() {
-		 $.notify("Test me too11"); },11000);
-		setTimeout( function() {
-		 $.notify("Test me too12"); },12000);
-		setTimeout( function() {
-		 $.notify("Test me too13"); },13000);
-		setTimeout( function() {
-		 $.notify("Test me too14"); },14000);
-		setTimeout( function() {
-		 $.notify("Test me too15"); },15000);
+		// setTimeout(function() {
+		// 	$("#notifyTest1").notify({sticky:true,group:"notify-right", mode : "after", showClose:false}).hide(); },1000);
+		// setTimeout(function() {
+		// $("#notifyTest2").notify({group:"notify-right", mode : "after"}).hide(); },3000);
+		// setTimeout(function() {
+		// $("#notifyTest3").notify({group:"notify-right", mode : "after"}).hide(); },5000);
+		// setTimeout(function() {
+		// $.notify("Test Right Side 4",{group:"notify-right", mode : "after"}); },6000);
+		// setTimeout(function() {
+		// $.notify("Test Right Side 5",{group:"notify-right", mode :"after"}); },7000);
+		// setTimeout(function() {
+		// $.notify("Test Right Side 6",{group:"notify-right", mode : "after"}); },9000);
+		// setTimeout(function() {
+		// $.notify("Test Right Side 7",{group:"notify-right", mode : "after"}); },11000);
+		// setTimeout(function() {
+		// $.notify("Test Right Side 8",{group:"notify-right", mode : "after"}); },13000);
+		// setTimeout(function() {
+		// $.notify("Test me too"); },1000);
+		// setTimeout(function() {
+		// $.notify("Test me too2"); },2000);
+		// setTimeout(function() {
+		// $.notify("Test me too3"); },3000);
+		// setTimeout(function() {
+		//  $.notify("Test me too4"); },4000);
+		// setTimeout(function() {
+		//  $.notify("Test me too5"); },5000);
+		// setTimeout(function() {
+		//  $.notify("Test me too6"); },6000);
+		// setTimeout(function() {
+		//  $.notify("Test me too7"); },7000);
+		// setTimeout( function() {
+		//  $.notify("Test me too8"); },8000);
+		// setTimeout( function() {
+		//  $.notify("Test me too9"); },9000);
+		// setTimeout( function() {
+		//  $.notify("Alert when closed.",{sticky:true, onClose:function(elem, options) { return confirm("I die very slow, are you sure?");}}); },10000);
+		// setTimeout( function() {
+		//  $.notify("Test me too11"); },11000);
+		// setTimeout( function() {
+		//  $.notify("Test me too12"); },12000);
+		// setTimeout( function() {
+		//  $.notify("Test me too13"); },13000);
+		// setTimeout( function() {
+		//  $.notify("Test me too14"); },14000);
+		// setTimeout( function() {
+		//  $.notify("Test me too15"); },15000);
 		
-		$.notify("Testing the Options", { group : "tester", sticky:true});
+		// $.notify("Testing the Options", { group : "tester", sticky:true});
 	});
 </script>
 </body>

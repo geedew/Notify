@@ -3,6 +3,7 @@
  * Notify JavaScript
  * 
  * jQuery Notification System.
+ *  Depends on jQuery and utilizes jQueryUI if it is available
  *
  * Copyright (c) 2009-2011 Drew Wilson (http://www.geedew.com, http://www.alldorks.com/notify)
  * Licensed under the MIT http://www.alldorks.com/notfy/license
@@ -10,9 +11,7 @@
  * @author Drew Wilson <drew@geedew.com>
  * @version 0.8
  *
- * @todo Update to take advantage of newest jQuery
- * @todo Get rid of the Div on top (unless a modal style)
- * @todo Add test cases to makes sure everything is running smooth
+ *
  */
 
  /**
@@ -27,74 +26,74 @@
  (function($) {
 	
 	var notifyConfig = {
-			container : "notify-history", // This is an ID that is applied to the entire List
-			bgiframe : false, // in case you're having issue with content floating above notifications
-			innerContainer : "notify-group", // This is a class that is applied to every group within the list
-			showHistory : true, // Set to false to hide the history link
-			limit : 8 , // Limits how much is viewable on screen, Does not include sticky elements
-			historyLink : {}, // This holds the link so that it is accessible to anythings
-			historyLinkId : "notify-history-link" , // This is the id of the link for the history
-			historyLinkText : "Show History" ,
-			hideHistoryLinkText : "Hide History",
-				historyPlacement : "top-left",
-			onHistory : function(historyLink) { return true; },
-			timers : [] , // Holds the timers for the notifications
-			data : [] , // Holds all of the notification for history control
-			defaults : {
-				/*General Configurations */
-					/*Should the message go above(before) or below(after) the last one */
-					mode : "before", //before or after | defaults to above/before
-					sticky : false, // Doesn't disappear
-					appearance : 3000, // Appear for 3 seconds
-					showClose : true, // Whether or not to show the close icon
-					noHistory : false, // Whether to push to history or not
-					
-					/* Positioning 
-					 * [top|middle|bottom]-[left|center|right] */
-					position : "top-left", 
-					
-					/*Not Implemented*/
-					showTime : true, // Displays a timestamp ***NOT ACTIVE YET**
-					attention : true, // If no mouse movement is noticed, this will not dissapear ** NOT ACTIVE YET **
-					
-					/* Basic Message Styling */
-					notifyClass : "notification", // Entire Notification 
-					activestatus : "notify-active", // History or Active
-					inactivestatus : "notify-history", // What class when inactive.
-					titleClass : "notify-title", // Sets thet 
-					messageClass : "notify-message", // Class that depicts the message within the notification
-					closeClass : "notify-close", // So you can change this easier for your liking
-					closeText : "close", //Close text, or html like an image
-					removeClass: "notify-remove", 
-					removeText : "remove", //Close text, or html
-					/* Opening|UnPausing Animation */
-					openAnimateParams : { opacity: 0.8 },
-					openAnimateDuration : 700,
-					openAnimateEasing : "linear",
-					openAnimateCallback : function() { return true },
-					/* Closing|Removing Animation */
-					closeAnimateParams :  { opacity: 0 },
-					closeAnimateDuration : 1000,
-					closeAnimateEasing : "linear",
-					closeAnimateCallback : function() { return true },
-					/* Pausing|Hovering Animation */
-					pauseAnimateParams : { opacity: 0.8 },
-					pauseAnimateDuration : 400 ,
-					pauseAnimateEasing : "swing",
-					pauseAnimateCallback : function() { return true },
-									
-				/* Required Configurations | Should not have to Edit*/
-					message : "", // Empty message, on purpose
-					currentlyActive : false, // This is true when hovering (for removal purposes
-					group : 'notify-default', // Allows for grouping the notifications, a String here will set the Group
-					
-					/** Hooks | default actions**/
-					onClose : function(self, options) {return true; }, //Function to run on Close to History
-					onOver : function(self, options) {return true; }, // Function to run on Hover
-					onOut : function(self, options) { return true;}, // Function to run when off Hover
-					onOpen : function(self, options) {return true; }, // Function to run on Open
-					onRemove : function(self, options) {return true; } // Function to run when removed from History
-			}	
+		container : "notify-history", // This is an ID that is applied to the entire List
+		bgiframe : false, // in case you're having issue with content floating above notifications
+		innerContainer : "notify-group", // This is a class that is applied to every group within the list
+		showHistory : true, // Set to false to hide the history link
+		limit : 8 , // Limits how much is viewable on screen at one time, Does not include sticky elements
+		historyLink : {}, // This holds the link so that it is accessible to anythings
+		historyLinkId : "notify-history-link" , // This is the id of the link for the history
+		historyLinkText : "Show History" ,
+		hideHistoryLinkText : "Hide History",
+			historyPlacement : "top-left",
+		onHistory : function(historyLink) { return true; },
+		timers : [] , // Holds the timers for the notifications
+		data : [] , // Holds all of the notification for history control
+		defaults : {
+			/*General Configurations */
+			/*Should the message go above(before) or below(after) the last one */
+			mode : "before", //before or after | defaults to above/before
+			sticky : false, // Doesn't disappear
+			appearance : 3, // Appear for 3 seconds
+			showClose : true, // Whether or not to show the close icon
+			noHistory : false, // Whether to push to history or not
+			
+			/* Positioning 
+			 * [top|middle|bottom]-[left|center|right] */
+			position : "top-left", 
+			
+			/*Not Implemented*/
+			showTime : true, // Displays a timestamp ***NOT ACTIVE YET**
+			attention : true, // If no mouse movement is noticed, this will not dissapear ** NOT ACTIVE YET **
+			
+			/* Basic Message Styling */
+			notifyClass : "notification", // Entire Notification 
+			activestatus : "notify-active", // History or Active
+			inactivestatus : "notify-history", // What class when inactive.
+			titleClass : "notify-title", // Sets thet 
+			messageClass : "notify-message", // Class that depicts the message within the notification
+			closeClass : "notify-close", // So you can change this easier for your liking
+			closeText : "close", //Close text, or html like an image
+			removeClass: "notify-remove", 
+			removeText : "remove", //Close text, or html
+			/* Opening|UnPausing Animation */
+			openAnimateParams : { opacity: 0.8 },
+			openAnimateDuration : 700,
+			openAnimateEasing : "linear",
+			openAnimateCallback : function() { return true },
+			/* Closing|Removing Animation */
+			closeAnimateParams :  { opacity: 0 },
+			closeAnimateDuration : 1000,
+			closeAnimateEasing : "linear",
+			closeAnimateCallback : function() { return true },
+			/* Pausing|Hovering Animation */
+			pauseAnimateParams : { opacity: 0.8 },
+			pauseAnimateDuration : 400 ,
+			pauseAnimateEasing : "swing",
+			pauseAnimateCallback : function() { return true },
+							
+		/* Required Configurations | Should not have to Edit*/
+			message : "", // Empty message, on purpose
+			currentlyActive : false, // This is true when hovering (for removal purposes
+			group : 'notify-default', // Allows for grouping the notifications, a String here will set the Group
+			
+			/** Hooks | default actions**/
+			onClose : function(self, options) {return true; }, //Function to run on Close to History
+			onOver : function(self, options) {return true; }, // Function to run on Hover
+			onOut : function(self, options) { return true;}, // Function to run when off Hover
+			onOpen : function(self, options) {return true; }, // Function to run on Open
+			onRemove : function(self, options) {return true; } // Function to run when removed from History
+		}	
 	}
 	
 
@@ -212,7 +211,7 @@
 							notifyTimer = notifyConfig.timers[note] = setInterval(function() {
 										closeNotification(note, options);
 										clearInterval(notifyTimer);
-									}, options.appearance);
+									}, options.appearance*1000);
 							options.currentlyActive = false;
 							return true;
 						}

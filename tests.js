@@ -41,3 +41,4 @@ test('Altering the default settings',function() {
 
 });
 
+/* Test that the limit works */
