@@ -1,8 +1,9 @@
  
 /**
- * Notify JavaScript
+ * @page notify Notify JavaScript
  * 
- * jQuery Notification System.
+ * 
+ * ###jQuery Notification System.
  *  Depends on jQuery and utilizes jQueryUI if it is available
  *
  * Copyright (c) 2009-2011 Drew Wilson (http://www.geedew.com, http://www.alldorks.com/notify)

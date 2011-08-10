@@ -28,7 +28,7 @@
  Basic Usage:
  $.notify('My Text');
  $(".mytext").notify();
-
+ 
  Using Options:
  var options = { sticky:true, appearance: 5000 };
  $.notify('My Text',options);
